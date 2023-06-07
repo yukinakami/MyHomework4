@@ -141,15 +141,25 @@ public class MainActivity2 extends AppCompatActivity implements Runnable {
         Log.i(TAG, "data: " + data);
         Log.i(TAG,"title: "+title);
         //爬取视频封面
-        String picPattern = "\"title\":\"(.*?)\"";
+        /*String picPattern = "\"title\":\"(.*?)\"";
         Pattern pattern2 = Pattern.compile(picPattern);
         Matcher matcher2 = pattern2.matcher(data);
         String picture = "";
         if (matcher2.find()) {
             picture = matcher2.group(1);
         }
-        String pic_url = "视频封面：" + picture;
+        String pic_url = "视频封面：" + picture;*/
 
+        String statePattern = "\"like\":(.*?),";
+        Pattern state_pattern = Pattern.compile(statePattern);
+        Matcher state_matcher = state_pattern.matcher(data);
+        String like = "";
+        if (state_matcher.find()) {
+            like = state_matcher.group(1);
+        }
+        String like_vedio = "点赞量：" + like;
+        Log.i(TAG,"state_vedio：" + like);
+        String information = title_hole + "\n" + like_vedio;
 
         //视频弹幕
         /*String Bv = "BV1Ts4y1i7Zo";
@@ -169,7 +179,7 @@ public class MainActivity2 extends AppCompatActivity implements Runnable {
         Log.i(TAG,"视频弹幕：" +doc);*/
 
         //发送消息
-        Message msg1 = handler.obtainMessage(5, title_hole);
+        Message msg1 = handler.obtainMessage(5, information);
         handler.sendMessage(msg1);
     }
 
